@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a4969a5b2c8a22b47966a090c22960cb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 281874
+  packageName: Simple Draw
+  packageVersion: 1.0
+  assetPath: Assets/SimpleDraw/Scripts/SimpleDraw.cs
+  uploadId: 663043
