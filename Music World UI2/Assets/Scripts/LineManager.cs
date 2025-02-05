@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class LineManager : MonoBehaviour
 {
@@ -15,6 +16,35 @@ public class LineManager : MonoBehaviour
         canvas= gameObject.GetComponent<Canvas>();
     }
 
+    public void ImportImage()
+    {
+        // 打开文件选择器
+        string path = UnityEditor.EditorUtility.OpenFilePanel("Select Image", "", "png,jpg,jpeg");
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            GameObject line = new GameObject("Line_" + lineList.Count.ToString());
+            line.transform.SetParent(canvas.transform);
+            // 读取图片文件
+            byte[] bytes = File.ReadAllBytes(path);
+
+            // 创建 Texture2D 对象
+            Texture2D texture = new Texture2D(2, 2);
+            texture.LoadImage(bytes);
+
+            RawImage rawImage = line.AddComponent<RawImage>();
+            rawImage.texture = texture;// 将纹理赋值给RawImage
+            rawImage.material = lineMaterial;// 将材质赋值给RawImage
+            line.AddComponent<CanvasGroup>();
+            line.AddComponent<DrawLine>();
+            line.AddComponent<RawImageEffect>();
+
+            rawImage.rectTransform.anchoredPosition = new Vector2(0, 0);
+            rawImage.rectTransform.sizeDelta = new Vector2(400, 400);
+
+            lineList.Add(line);
+        }
+    }
     public void CreateLine(string filePath)
     {
         GameObject line = new GameObject("Line_" + lineList.Count.ToString());

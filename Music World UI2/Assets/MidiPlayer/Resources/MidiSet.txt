@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<MidiSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SoundFonts>
+    <SoundFontInfo>
+      <Name>HS Classic Grand Piano Damped</Name>
+      <PatchCount>4</PatchCount>
+      <WaveCount>50</WaveCount>
+      <WaveSize>26215400</WaveSize>
+      <SF2Path>C:/Users/李万钧/AppData/LocalLow/DefaultCompany/Music World UI2\SoundFont\HS Classic Grand Piano Damped.sf2</SF2Path>
+    </SoundFontInfo>
+  </SoundFonts>
+  <IndexSelectedSF>0</IndexSelectedSF>
+  <MidiFiles>
+    <string>起风了 修改版</string>
+  </MidiFiles>
+</MidiSet>
