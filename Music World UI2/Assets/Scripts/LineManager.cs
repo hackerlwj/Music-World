@@ -60,7 +60,7 @@ public class LineManager : MonoBehaviour
         line.AddComponent<RawImageEffect>();
         
         rawImage.rectTransform.anchoredPosition = new Vector2(0, 0);
-        rawImage.rectTransform.sizeDelta = new Vector2(400, 400); // 设置RawImage的大小
+        rawImage.rectTransform.sizeDelta = new Vector2(3, 3); // 设置RawImage的大小
         //RawImage rawImage=line.GetComponent<RawImage>();
         
         lineList.Add(line);
@@ -80,8 +80,12 @@ public class LineManager : MonoBehaviour
 
     public void PreButton()
     {
-        Destroy(lineList[lineList.Count - 1].gameObject);
-        lineList.RemoveAt(lineList.Count - 1);
+        if(lineList.Count - 1>=0)
+        {
+            Destroy(lineList[lineList.Count - 1].gameObject);
+            lineList.RemoveAt(lineList.Count - 1);
+        }
+        
     }
     public void ClearButton()
     {

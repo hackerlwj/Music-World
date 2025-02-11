@@ -9,6 +9,8 @@ namespace TheSimpleDraw
 {
     public class SimpleDraw : MonoBehaviour
     {
+        public Camera canvasCamera;
+
         public RawImage drawingArea;
         public int brushSize; // brush size
 
@@ -119,9 +121,10 @@ namespace TheSimpleDraw
             if (!isDrawing) return;
 
             Vector2 mousePos = Input.mousePosition;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(drawingArea.rectTransform, mousePos, null, out Vector2 localPoint))
-            {
 
+            // 使用指定的摄像头进行坐标转换
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(drawingArea.rectTransform, mousePos, canvasCamera, out Vector2 localPoint))
+            {
                 float width = drawingArea.rectTransform.rect.width;
                 float height = drawingArea.rectTransform.rect.height;
 
@@ -134,7 +137,6 @@ namespace TheSimpleDraw
                 {
                     return;
                 }
-
 
                 float xNormalized = (localPoint.x / width + 0.5f);
                 float yNormalized = (localPoint.y / height + 0.5f);
@@ -152,9 +154,7 @@ namespace TheSimpleDraw
                 DrawLine((int)lastDrawPoint.x, (int)lastDrawPoint.y, (int)texturePoint.x, (int)texturePoint.y, color, brushSize);
                 lastDrawPoint = texturePoint;
             }
-
         }
-
 
         void DrawLine(int x0, int y0, int x1, int y1, Color color, int thickness)
         {
@@ -173,6 +173,7 @@ namespace TheSimpleDraw
 
             texture.Apply();
         }
+
         void DrawPoint(int x, int y, Color color, int thickness)
         {
             for (int i = -thickness; i < thickness; i++)
