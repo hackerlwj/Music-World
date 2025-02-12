@@ -21,7 +21,7 @@ public class RhythmGenerator : MonoBehaviour
             if (spawnPoints.Count > 0) // 确保spawnPoints中有元素
             {
                 int posIndex = Random.Range(0, spawnPoints.Count); // 使用Count获取列表长度
-                Instantiate(targetPrefab, spawnPoints[posIndex].position, Quaternion.identity);
+                Instantiate(targetPrefab, spawnPoints[posIndex].position + new Vector3(0, 0, -1), Quaternion.identity);
             }
             else
             {

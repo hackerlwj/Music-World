@@ -6,6 +6,7 @@ using System.IO;
 
 public class LineManager : MonoBehaviour
 {
+    public RhythmGenerator rhythmGenerator;
     private Canvas canvas;
     //public GameObject linePrefab;
     public Material lineMaterial;
@@ -34,7 +35,7 @@ public class LineManager : MonoBehaviour
 
             RawImage rawImage = line.AddComponent<RawImage>();
             rawImage.texture = texture;// 将纹理赋值给RawImage
-            rawImage.material = lineMaterial;// 将材质赋值给RawImage
+            //rawImage.material = lineMaterial;// 将材质赋值给RawImage
             line.AddComponent<CanvasGroup>();
             line.AddComponent<DrawLine>();
             line.AddComponent<RawImageEffect>();
@@ -43,6 +44,7 @@ public class LineManager : MonoBehaviour
             rawImage.rectTransform.sizeDelta = new Vector2(400, 400);
 
             lineList.Add(line);
+            rhythmGenerator.spawnPoints.Add(line.transform);
         }
     }
     public void CreateLine(string filePath)
@@ -64,6 +66,7 @@ public class LineManager : MonoBehaviour
         //RawImage rawImage=line.GetComponent<RawImage>();
         
         lineList.Add(line);
+        rhythmGenerator.spawnPoints.Add(line.transform);
     }
     private Texture2D LoadPNG(string filePath)
     {
@@ -84,6 +87,7 @@ public class LineManager : MonoBehaviour
         {
             Destroy(lineList[lineList.Count - 1].gameObject);
             lineList.RemoveAt(lineList.Count - 1);
+            rhythmGenerator.spawnPoints.RemoveAt(rhythmGenerator.spawnPoints.Count - 1);
         }
         
     }
@@ -94,6 +98,7 @@ public class LineManager : MonoBehaviour
             Destroy(lineList[i].gameObject);
         }
         lineList.Clear();
+        rhythmGenerator.spawnPoints.Clear();
     }
     // Update is called once per frame
     void Update()

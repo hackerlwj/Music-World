@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
+    public Animator animator;
+
     public GameObject drawCanvas;
     public GameObject mainCanvas;
     public GameObject startCanvas;
@@ -14,39 +16,61 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraCanvas.SetActive(false);
+        cameraCanvas.SetActive(true);
         gameCanvas.SetActive(false);
-        drawCanvas.SetActive(false);
+        drawCanvas.SetActive(true);
         mainCanvas.SetActive(false);
         startCanvas.SetActive(true);
     }
     public void EnterGameCanvas()
     {
+        StartCoroutine(LoadGameCanvas());
+    }
+    IEnumerator LoadGameCanvas()
+    {
+        animator.SetBool("FadeIn", true);
+        animator.SetBool("FadeOut", false);
+
+        yield return new WaitForSeconds(1);
+
         mainCanvas.SetActive(false);
         gameCanvas.SetActive(true);
+        animator.SetBool("FadeIn", false);
+        animator.SetBool("FadeOut", true);
     }
     public void ShowMainCanvas()
     {
+        StartCoroutine(LoadMainCanvas());
+    }
+    IEnumerator LoadMainCanvas()
+    {
+        animator.SetBool("FadeIn", true);
+        animator.SetBool("FadeOut", false);
+
+        yield return new WaitForSeconds(1);
+
         gameCanvas.SetActive(false);
         mainCanvas.SetActive(true);
-        startCanvas.SetActive(false) ;
+        startCanvas.SetActive(false);
+        animator.SetBool("FadeIn", false);
+        animator.SetBool("FadeOut", true);
     }
-    public void ShowDrawCanvas()
-    {
-        drawCanvas.SetActive(true);
-    }
-    public void ShowCameraCanvas()
-    {
-        cameraCanvas.SetActive(true) ;
-    }
-    public void HideDrawCanvas() 
-    {
-        drawCanvas.SetActive(false);
-    }
-    public void HideCameraCanvas()
-    {
-        cameraCanvas.SetActive(false) ;
-    }
+    //public void ShowDrawCanvas()
+    //{
+    //    drawCanvas.SetActive(true);
+    //}
+    //public void ShowCameraCanvas()
+    //{
+    //    cameraCanvas.SetActive(true);
+    //}
+    //public void HideDrawCanvas() 
+    //{
+    //    drawCanvas.SetActive(false);
+    //}
+    //public void HideCameraCanvas()
+    //{
+    //    cameraCanvas.SetActive(false) ;
+    //}
     public void ExitApplication()
     {
         DeleteSavedTextures();

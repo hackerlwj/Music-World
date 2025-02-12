@@ -2,6 +2,7 @@ Shader "Custom/RemoveWhiteBackground" {
     Properties {
         _MainTex ("Base (RGB)", 2D) = "white" {}
         _Threshold ("Threshold", Range(0.0,1.0)) = 0.95
+        _GlobalAlpha ("Global Alpha", Range(0, 1)) = 1 // 添加全局透明度属性
     }
     SubShader {
         Tags { "RenderType"="Transparent" "Queue"="Transparent"}
@@ -9,7 +10,6 @@ Shader "Custom/RemoveWhiteBackground" {
         Lighting Off
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
-        AlphaTest Greater 0.5
         Cull Off
 
         Pass {
@@ -31,6 +31,7 @@ Shader "Custom/RemoveWhiteBackground" {
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float _Threshold;
+            float _GlobalAlpha; // 声明全局透明度变量
 
             v2f vert (appdata v) {
                 v2f o;
@@ -45,6 +46,8 @@ Shader "Custom/RemoveWhiteBackground" {
                 if (col.r > _Threshold && col.g > _Threshold && col.b > _Threshold) {
                     col.a = 0.0;
                 }
+                // 应用全局透明度
+                col.a *= _GlobalAlpha; 
                 return col;
             }
             ENDCG

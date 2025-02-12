@@ -10,12 +10,12 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
     public float scaleDuration = 1.5f; // 总缩放时间
     public AnimationCurve scaleCurve; // 控制缩放曲线
 
-    private Vector3 initialScale = new Vector3(3f, 3f, 1f); // 初始大小
+    private Vector3 initialScale = new Vector3(0.5f, 0.5f, 1f); // 初始大小
     private bool isDestroying = false;
 
     void Start()
     {
-        GameObject canvas = GameObject.Find("GameCanvas");
+        GameObject canvas = GameObject.Find("PersistentCanvas");
         transform.SetParent(canvas.transform);
         halo.transform.localScale = initialScale;
         StartCoroutine(ScaleHalo());
