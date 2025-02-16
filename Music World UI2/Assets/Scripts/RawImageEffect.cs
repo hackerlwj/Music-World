@@ -10,15 +10,38 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
     private AudioSource audioSource;
 
     private RectTransform rectTransform;
+    public LineManager lineManager;
 
     void Start()
     {
+        GameObject persistentCanvas = GameObject.Find("PersistentCanvas");
+
+        // 获取LineManager组件
+        lineManager = persistentCanvas.GetComponent<LineManager>();
         rectTransform = GetComponent<RectTransform>();
         audioSource=gameObject.AddComponent<AudioSource>();
-        AudioClip clip = Resources.Load<AudioClip>("SoundSource/Test");
-
-        // 设置AudioSource的属性
-        audioSource.clip = clip;
+        if(lineManager.lineList.Count == 1)
+        {
+            AudioClip clip = Resources.Load<AudioClip>("SoundSource/8_violinpizzicato_E4");
+            audioSource.clip = clip;
+        }
+        if (lineManager.lineList.Count == 2)
+        {
+            AudioClip clip = Resources.Load<AudioClip>("SoundSource/3_glockenspiel_E5");
+            audioSource.clip = clip;
+        }
+        if (lineManager.lineList.Count == 3)
+        {
+            AudioClip clip = Resources.Load<AudioClip>("SoundSource/3_guitar_E2");
+            audioSource.clip = clip;
+        }
+        if (lineManager.lineList.Count == 4)
+        {
+            AudioClip clip = Resources.Load<AudioClip>("SoundSource/4_violinpizzicato_G3");
+            audioSource.clip = clip;
+        }
+        //// 设置AudioSource的属性
+        //audioSource.clip = clip;
         audioSource.playOnAwake = false;
     }
 
