@@ -8,6 +8,7 @@ public class CanvasManager : MonoBehaviour
 {
     public Animator animator;
 
+    public GameObject saveCanvas;
     public GameObject drawCanvas;
     public GameObject mainCanvas;
     public GameObject startCanvas;
@@ -16,6 +17,7 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        saveCanvas.SetActive(true);
         cameraCanvas.SetActive(true);
         gameCanvas.SetActive(false);
         drawCanvas.SetActive(true);
