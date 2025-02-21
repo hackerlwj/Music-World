@@ -30,29 +30,29 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
         }
 
         rectTransform = GetComponent<RectTransform>();
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
 
         // 根据 lineList 的数量加载不同的音频剪辑
-        if (lineManager != null)
-        {
-            AudioClip clip = null;
-            switch (lineManager.lineList.Count)
-            {
-                case 1:
-                    clip = Resources.Load<AudioClip>("SoundSource/8_violinpizzicato_E4");
-                    break;
-                case 2:
-                    clip = Resources.Load<AudioClip>("SoundSource/3_glockenspiel_E5");
-                    break;
-                case 3:
-                    clip = Resources.Load<AudioClip>("SoundSource/3_guitar_E2");
-                    break;
-                case 4:
-                    clip = Resources.Load<AudioClip>("SoundSource/4_violinpizzicato_G3");
-                    break;
-            }
-            audioSource.clip = clip;
-        }
+        //if (lineManager != null)
+        //{
+            //AudioClip clip = null;
+            //switch (lineManager.lineList.Count)
+            //{
+            //    case 1:
+            //        clip = Resources.Load<AudioClip>("SoundSource/8_violinpizzicato_E4");
+            //        break;
+            //    case 2:
+            //        clip = Resources.Load<AudioClip>("SoundSource/3_glockenspiel_E5");
+            //        break;
+            //    case 3:
+            //        clip = Resources.Load<AudioClip>("SoundSource/3_guitar_E2");
+            //        break;
+            //    case 4:
+            //        clip = Resources.Load<AudioClip>("SoundSource/4_violinpizzicato_G3");
+            //        break;
+            //}
+            //audioSource.clip = clip;
+        //}
 
         // 设置 AudioSource 的属性
         audioSource.playOnAwake = false;
@@ -88,15 +88,65 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
             Vector2 screenPos = rectTransform.anchoredPosition;
 
             // 根据 y 坐标范围进行不同操作
-            if (screenPos.y >= -100 && screenPos.y < 0)
+            if (screenPos.y < -23)
             {
                 UpdateExistingText("do");
                 DestroySpecificPrefab("do(Clone)");
             }
-            else if (screenPos.y >= 0 && screenPos.y < 100)
+            else if (screenPos.y >= -23 && screenPos.y < -17)
             {
                 UpdateExistingText("re");
                 DestroySpecificPrefab("re(Clone)");
+            }
+            else if (screenPos.y >= -17 && screenPos.y < -10)
+            {
+                UpdateExistingText("mi");
+                DestroySpecificPrefab("mi(Clone)");
+            }
+            else if (screenPos.y >= -10 && screenPos.y < -6)
+            {
+                UpdateExistingText("fa");
+                DestroySpecificPrefab("fa(Clone)");
+            }
+            else if (screenPos.y >= -6 && screenPos.y < 0)
+            {
+                UpdateExistingText("sol");
+                DestroySpecificPrefab("sol(Clone)");
+            }
+            else if (screenPos.y >= 0 && screenPos.y < 5)
+            {
+                UpdateExistingText("la");
+                DestroySpecificPrefab("la(Clone)");
+            }
+            else if (screenPos.y >= 5 && screenPos.y < 11)
+            {
+                UpdateExistingText("ti");
+                DestroySpecificPrefab("ti(Clone)");
+            }
+            else if (screenPos.y >= 11 && screenPos.y < 17)
+            {
+                UpdateExistingText("do");
+                DestroySpecificPrefab("do(Clone)");
+            }
+            else if (screenPos.y >= 17 && screenPos.y < 23)
+            {
+                UpdateExistingText("re");
+                DestroySpecificPrefab("re(Clone)");
+            }
+            else if (screenPos.y >= 23 && screenPos.y < 29)
+            {
+                UpdateExistingText("mi");
+                DestroySpecificPrefab("mi(Clone)");
+            }
+            else if (screenPos.y >= 29 && screenPos.y < 35)
+            {
+                UpdateExistingText("fa");
+                DestroySpecificPrefab("fa(Clone)");
+            }
+            else if (screenPos.y >= 35 && screenPos.y < 41)
+            {
+                UpdateExistingText("sol");
+                DestroySpecificPrefab("sol(Clone)");
             }
         }
     }

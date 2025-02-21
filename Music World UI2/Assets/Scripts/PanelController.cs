@@ -7,6 +7,7 @@ public class PanelController : MonoBehaviour
     public CanvasGroup panel1CanvasGroup; // 第一个面板的 CanvasGroup 组件
     public CanvasGroup panel2CanvasGroup; // 第二个面板的 CanvasGroup 组件
     public CanvasGroup panel3CanvasGroup; // 第三个面板的 CanvasGroup 组件
+    public CanvasGroup panel4CanvasGroup; // 第四个面板的 CanvasGroup 组件
     public float fadeDuration = 0.5f; // 淡入淡出动画的持续时间
     public Ease fadeEaseType = Ease.Linear; // 动画缓动类型
 
@@ -78,6 +79,30 @@ public class PanelController : MonoBehaviour
             {
                 panel3CanvasGroup.blocksRaycasts = false; // 禁用射线检测，使面板不可交互
                 panel3CanvasGroup.interactable = false; // 禁用交互性
+            });
+        }
+    }
+
+    // 显示第四个面板的方法
+    public void ShowPanel4()
+    {
+        if (panel4CanvasGroup != null)
+        {
+            panel4CanvasGroup.blocksRaycasts = true; // 启用射线检测，使面板可交互
+            panel4CanvasGroup.interactable = true; // 启用交互性
+            panel4CanvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEaseType); // 淡入动画
+        }
+    }
+
+    // 隐藏第四个面板的方法
+    public void HidePanel4()
+    {
+        if (panel4CanvasGroup != null)
+        {
+            panel4CanvasGroup.DOFade(0f, fadeDuration).SetEase(fadeEaseType).OnComplete(() =>
+            {
+                panel4CanvasGroup.blocksRaycasts = false; // 禁用射线检测，使面板不可交互
+                panel4CanvasGroup.interactable = false; // 禁用交互性
             });
         }
     }

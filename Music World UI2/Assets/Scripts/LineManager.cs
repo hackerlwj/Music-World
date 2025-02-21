@@ -47,7 +47,7 @@ public class LineManager : MonoBehaviour
     //        rhythmGenerator.spawnPoints.Add(line.transform);
     //    }
     //}
-    public void CreateLine(string filePath)
+    public void CreateLine(string filePath,Color color)
     {
         GameObject line = new GameObject("Line_" + lineList.Count.ToString());
         line.transform.SetParent(canvas.transform);
@@ -55,11 +55,13 @@ public class LineManager : MonoBehaviour
         
         Texture2D texture = LoadPNG(filePath);// 加载PNG图片
         RawImage rawImage=line.AddComponent<RawImage>();
+        rawImage.color = color;
         rawImage.texture = texture;// 将纹理赋值给RawImage
         rawImage.material = lineMaterial;// 将材质赋值给RawImage
+        line.AddComponent<AudioSource>();
         line.AddComponent<CanvasGroup>();
+        line.AddComponent<RawImageEffect>();       
         line.AddComponent<DrawLine>();
-        line.AddComponent<RawImageEffect>();
         
         rawImage.rectTransform.anchoredPosition = new Vector2(0, 0);
         rawImage.rectTransform.sizeDelta = new Vector2(3, 3); // 设置RawImage的大小

@@ -36,14 +36,14 @@ namespace TheSimpleDraw
                     string tag = btn.tag; // 获取按钮的标签
                     switch (tag)
                     {
-                        case "red":
-                            color = Color.red; // 设置为红色
+                        case "orange":
+                            color = new Color(225f/255f, 118f/255f, 0); // 设置为橙色
                             break;
                         case "blue":
-                            color = Color.blue; // 设置为蓝色
+                            color = new Color(100f/255f, 149f/255f, 237f / 255f); // 设置为蓝色
                             break;
-                        case "green":
-                            color = Color.green; // 设置为绿色
+                        case "purple":
+                            color = new Color(130f / 255f, 34f/ 255f, 243f/255f); // 设置为紫色
                             break;
                         default:
                             break;
@@ -107,7 +107,7 @@ namespace TheSimpleDraw
             Debug.Log($"Saved {filename} to {path}");
             ClearCanvas();
             isDrawing = false;
-            lineManager.CreateLine(path);
+            lineManager.CreateLine(path, color);
         }
 
         void DrawWithMouse()
