@@ -6,6 +6,8 @@ public class MultiPrefabMoveAndDestroy : MonoBehaviour
     public float destroyXScreen;
     public bool isCollidingWithLine = false;
 
+    public GameObject SuccessEffectPrefab;
+
     private RectTransform rectTransform;
 
     private void Start()
@@ -25,9 +27,24 @@ public class MultiPrefabMoveAndDestroy : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            if (currentScreenPosition.x < -228)
+            if (currentScreenPosition.x < 84)
             {
                 isCollidingWithLine = true;
+            }
+        }
+    }
+    public void SuccessEffect()
+    {
+        if (SuccessEffectPrefab != null)
+        {
+            // 获取当前UI元素所在的Canvas
+            Canvas parentCanvas = GetComponentInParent<Canvas>();
+            if (parentCanvas != null)
+            {
+                // 在当前UI元素的位置实例化粒子特效
+                GameObject particleEffect = Instantiate(SuccessEffectPrefab, transform.position, Quaternion.identity);
+                // 将粒子特效设置为Canvas的子对象
+                particleEffect.transform.SetParent(parentCanvas.transform, true);
             }
         }
     }

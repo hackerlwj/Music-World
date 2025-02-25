@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
+    public float hideTime = 1f;
+    public Image gamePromptImage;
     public Animator animator;
+    private Canvas mainCanva;
 
     public GameObject saveCanvas;
     public GameObject drawCanvas;
@@ -17,6 +21,7 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainCanva=mainCanvas.GetComponent<Canvas>();
         saveCanvas.SetActive(true);
         cameraCanvas.SetActive(true);
         gameCanvas.SetActive(false);
@@ -37,6 +42,7 @@ public class CanvasManager : MonoBehaviour
 
         mainCanvas.SetActive(false);
         gameCanvas.SetActive(true);
+        StartCoroutine(FadeOutOverTime(hideTime,gamePromptImage));
         animator.SetBool("FadeIn", false);
         animator.SetBool("FadeOut", true);
     }
@@ -48,11 +54,13 @@ public class CanvasManager : MonoBehaviour
     {
         animator.SetBool("FadeIn", true);
         animator.SetBool("FadeOut", false);
+        mainCanvas.SetActive(true) ;
+        mainCanva.enabled = false;
 
         yield return new WaitForSeconds(1);
 
         gameCanvas.SetActive(false);
-        mainCanvas.SetActive(true);
+        mainCanva.enabled=true;
         startCanvas.SetActive(false);
         animator.SetBool("FadeIn", false);
         animator.SetBool("FadeOut", true);
@@ -95,6 +103,36 @@ public class CanvasManager : MonoBehaviour
         {
             Debug.Log("No saved textures to delete.");
         }
+    }
+    IEnumerator FadeOutOverTime(float fadeDuration, Image promptImage)
+    {
+        //提示显示维持的时间
+        yield return new WaitForSeconds(3f);
+        // 记录开始时间
+        float startTime = Time.time;
+        // 记录开始时的透明度
+        float startAlpha = promptImage.color.a;
+
+        while (Time.time - startTime < fadeDuration)
+        {
+            // 计算当前的透明度
+            float t = (Time.time - startTime) / fadeDuration;
+            float currentAlpha = Mathf.Lerp(startAlpha, 0f, t);
+
+            // 获取当前的颜色
+            Color currentColor = promptImage.color;
+            // 设置新的透明度
+            currentColor.a = currentAlpha;
+            // 设置新的颜色
+            promptImage.color = currentColor;
+
+            // 等待下一帧
+            yield return null;
+        }
+
+        // 确保透明度最终为0
+        promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
+        promptImage.enabled = false;
     }
 
     // Update is called once per frame

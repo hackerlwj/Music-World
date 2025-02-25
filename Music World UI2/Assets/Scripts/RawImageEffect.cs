@@ -166,6 +166,7 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
         {
             if (obj.isCollidingWithLine && obj.gameObject.name == targetName)
             {
+                obj.SuccessEffect();
                 Destroy(obj.gameObject);
             }
         }

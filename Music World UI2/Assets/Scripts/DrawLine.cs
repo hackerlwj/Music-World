@@ -52,7 +52,7 @@ public class DrawLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // 恢复透明度和射线检测
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        StartCoroutine(CallApi());
+        //StartCoroutine(CallApi());
     }
 
     IEnumerator CallApi()

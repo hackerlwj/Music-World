@@ -90,5 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  destroyXScreen: -283
+  destroyXScreen: 21
   isCollidingWithLine: 0
+  SuccessEffectPrefab: {fileID: 5238538877814813142, guid: 47096eff328e11a418ace7db2d72aa97, type: 3}
