@@ -5,10 +5,10 @@ public class MultiPrefabSpawner : MonoBehaviour
     public GameObject[] prefabs;
     public float spawnRate = 1f;
     public float spawnXScreen;
-    public float fixedYScreen;
+    public float spawnYScreen;
     public GameObject gameCanvas;
 
-    private void OnEnable()
+    public void StartSpawn()
     {
         // 当 GameCanvas 激活时，启动重复调用 Spawn 方法的协程
         InvokeRepeating("Spawn", 0f, spawnRate);
@@ -24,7 +24,7 @@ public class MultiPrefabSpawner : MonoBehaviour
     {
         int randomIndex = Random.Range(0, prefabs.Length);
         GameObject selectedPrefab = prefabs[randomIndex];
-        Vector3 screenSpawnPosition = new Vector3(spawnXScreen, fixedYScreen, 0f);
+        Vector3 screenSpawnPosition = new Vector3(spawnXScreen, spawnYScreen, 0f);
         GameObject instantiatedObject = Instantiate(selectedPrefab, Vector3.zero, Quaternion.identity);
 
         if (gameCanvas != null)

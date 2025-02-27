@@ -3,7 +3,7 @@ using UnityEngine;
 public class MultiPrefabMoveAndDestroy : MonoBehaviour
 {
     public float speed = 5f;
-    public float destroyXScreen;
+    public float destroyYScreen;
     public bool isCollidingWithLine = false;
 
     public GameObject SuccessEffectPrefab;
@@ -20,14 +20,14 @@ public class MultiPrefabMoveAndDestroy : MonoBehaviour
         if (rectTransform != null)
         {
             Vector2 currentScreenPosition = rectTransform.anchoredPosition;
-            currentScreenPosition.x -= speed * Time.deltaTime;
+            currentScreenPosition.y -= speed * Time.deltaTime;
             rectTransform.anchoredPosition = currentScreenPosition;
 
-            if (currentScreenPosition.x < destroyXScreen)
+            if (currentScreenPosition.y < destroyYScreen)
             {
                 Destroy(gameObject);
             }
-            if (currentScreenPosition.x < 84)
+            if (currentScreenPosition.y < -216)
             {
                 isCollidingWithLine = true;
             }

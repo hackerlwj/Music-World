@@ -169,6 +169,6 @@ public class PanelController : MonoBehaviour
 
         // 确保透明度最终为0
         promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
-        promptImage.enabled = false;
+        promptImage.gameObject.SetActive(false);
     }
 }

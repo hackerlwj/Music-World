@@ -42,7 +42,7 @@ public class CanvasManager : MonoBehaviour
 
         mainCanvas.SetActive(false);
         gameCanvas.SetActive(true);
-        StartCoroutine(FadeOutOverTime(hideTime,gamePromptImage));
+        //StartCoroutine(FadeOutOverTime(hideTime,gamePromptImage));
         animator.SetBool("FadeIn", false);
         animator.SetBool("FadeOut", true);
     }
@@ -132,7 +132,7 @@ public class CanvasManager : MonoBehaviour
 
         // 确保透明度最终为0
         promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
-        promptImage.enabled = false;
+        promptImage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
