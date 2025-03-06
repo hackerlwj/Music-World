@@ -5,9 +5,9 @@ using System.Collections;
 
 public class PanelController : MonoBehaviour
 {
-    public Image panel2PromptImage;
+    //public Image panel2PromptImage;
     public Image panel4PromptImage;
-    public Image panel5PromptImage;
+    //public Image panel5PromptImage;
     public float hideTime = 1f;
 
     public CanvasGroup panel1CanvasGroup; // 第一个面板的 CanvasGroup 组件
@@ -47,7 +47,7 @@ public class PanelController : MonoBehaviour
     {
         if (panel2CanvasGroup != null)
         {
-            StartCoroutine(FadeOutOverTime(hideTime, panel2PromptImage));
+            //StartCoroutine(FadeOutOverTime(hideTime, panel2PromptImage));
             panel2CanvasGroup.blocksRaycasts = true; // 启用射线检测，使面板可交互
             panel2CanvasGroup.interactable = true; // 启用交互性
             panel2CanvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEaseType); // 淡入动画
@@ -121,7 +121,7 @@ public class PanelController : MonoBehaviour
     {
         if (panel5CanvasGroup != null)
         {
-            StartCoroutine(FadeOutOverTime(hideTime, panel5PromptImage));
+            //StartCoroutine(FadeOutOverTime(hideTime, panel5PromptImage));
             panel5CanvasGroup.blocksRaycasts = true; // 启用射线检测，使面板可交互
             panel5CanvasGroup.interactable = true; // 启用交互性
             panel5CanvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEaseType); // 淡入动画
@@ -145,10 +145,21 @@ public class PanelController : MonoBehaviour
     {
         // 提示显示维持的时间
         yield return new WaitForSeconds(4f);
+
         // 记录开始时间
         float startTime = Time.time;
         // 记录开始时的透明度
         float startAlpha = promptImage.color.a;
+
+        // 获取所有子物体的 Image 组件
+        Image[] childImages = promptImage.GetComponentsInChildren<Image>();
+        float[] startAlphas = new float[childImages.Length];
+
+        // 记录每个子物体 Image 的初始透明度
+        for (int i = 0; i < childImages.Length; i++)
+        {
+            startAlphas[i] = childImages[i].color.a;
+        }
 
         while (Time.time - startTime < fadeDuration)
         {
@@ -163,12 +174,30 @@ public class PanelController : MonoBehaviour
             // 设置新的颜色
             promptImage.color = currentColor;
 
+            // 处理子物体的 Image 透明度
+            for (int i = 0; i < childImages.Length; i++)
+            {
+                float childCurrentAlpha = Mathf.Lerp(startAlphas[i], 0f, t);
+                Color childColor = childImages[i].color;
+                childColor.a = childCurrentAlpha;
+                childImages[i].color = childColor;
+            }
+
             // 等待下一帧
             yield return null;
         }
 
-        // 确保透明度最终为0
+        // 确保父物体透明度最终为 0
         promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
         promptImage.gameObject.SetActive(false);
+
+        // 确保子物体透明度最终为 0 并禁用子物体
+        for (int i = 0; i < childImages.Length; i++)
+        {
+            Color childColor = childImages[i].color;
+            childColor.a = 0f;
+            childImages[i].color = childColor;
+            childImages[i].gameObject.SetActive(false);
+        }
     }
 }

@@ -125,28 +125,28 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
             }
             else if (screenPos.y >= 11 && screenPos.y < 17)
             {
-                UpdateExistingText("do");
-                DestroySpecificPrefab("do(Clone)");
+                UpdateExistingText("do'");
+                DestroySpecificPrefab("do'(Clone)");
             }
             else if (screenPos.y >= 17 && screenPos.y < 23)
             {
-                UpdateExistingText("re");
-                DestroySpecificPrefab("re(Clone)");
+                UpdateExistingText("re'");
+                DestroySpecificPrefab("re'(Clone)");
             }
             else if (screenPos.y >= 23 && screenPos.y < 29)
             {
-                UpdateExistingText("mi");
-                DestroySpecificPrefab("mi(Clone)");
+                UpdateExistingText("mi'");
+                DestroySpecificPrefab("mi'(Clone)");
             }
             else if (screenPos.y >= 29 && screenPos.y < 35)
             {
-                UpdateExistingText("fa");
-                DestroySpecificPrefab("fa(Clone)");
+                UpdateExistingText("fa'");
+                DestroySpecificPrefab("fa'(Clone)");
             }
             else if (screenPos.y >= 35 && screenPos.y < 41)
             {
-                UpdateExistingText("sol");
-                DestroySpecificPrefab("sol(Clone)");
+                UpdateExistingText("sol'");
+                DestroySpecificPrefab("sol'(Clone)");
             }
         }
     }

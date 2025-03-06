@@ -54,7 +54,7 @@ public class InputPanelScript : MonoBehaviour
             melodyGenerationPanelCanvasGroup.blocksRaycasts = true;
             // ²¥·Åµ¯³ö¶¯»­
             melodyGenerationPanelCanvasGroup.DOFade(1, duration).SetEase(easeType);
-            melodyGenerationPanelCanvasGroup.transform.DOScale(new Vector3(0.5f,0.5f,0.5f), duration).SetEase(easeType);
+            melodyGenerationPanelCanvasGroup.transform.DOScale(new Vector3(0.5f,0.7f,0.5f), duration).SetEase(easeType);
         }
     }
     public void HideMelodyGenerationPanel()
