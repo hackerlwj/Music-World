@@ -8,7 +8,7 @@ public class RhythmGenerator : MonoBehaviour
     public float[] spawnTimes; // 节奏点出现时间数组
     public List<Transform> spawnPoints; // 生成位置列表
 
-    void Start()
+    public void StartGenerator()
     {
         StartCoroutine(SpawnTargets());
     }

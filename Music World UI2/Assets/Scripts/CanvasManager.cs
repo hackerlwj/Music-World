@@ -17,13 +17,13 @@ public class CanvasManager : MonoBehaviour
     public GameObject mainCanvas;
     public GameObject startCanvas;
     public GameObject gameCanvas;
-    public GameObject cameraCanvas;
+    //public GameObject cameraCanvas;
     // Start is called before the first frame update
     void Start()
     {
         mainCanva=mainCanvas.GetComponent<Canvas>();
         saveCanvas.SetActive(true);
-        cameraCanvas.SetActive(true);
+        //cameraCanvas.SetActive(true);
         gameCanvas.SetActive(false);
         drawCanvas.SetActive(true);
         mainCanvas.SetActive(false);

@@ -33,26 +33,47 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
         audioSource = gameObject.GetComponent<AudioSource>();
 
         // 根据 lineList 的数量加载不同的音频剪辑
-        //if (lineManager != null)
-        //{
-            //AudioClip clip = null;
-            //switch (lineManager.lineList.Count)
-            //{
-            //    case 1:
-            //        clip = Resources.Load<AudioClip>("SoundSource/8_violinpizzicato_E4");
-            //        break;
-            //    case 2:
-            //        clip = Resources.Load<AudioClip>("SoundSource/3_glockenspiel_E5");
-            //        break;
-            //    case 3:
-            //        clip = Resources.Load<AudioClip>("SoundSource/3_guitar_E2");
-            //        break;
-            //    case 4:
-            //        clip = Resources.Load<AudioClip>("SoundSource/4_violinpizzicato_G3");
-            //        break;
-            //}
-            //audioSource.clip = clip;
-        //}
+        if (lineManager != null)
+        {
+            AudioClip clip = null;
+            switch (lineManager.lineList.Count)
+            {
+                case 1:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/1_grandpiano_G3（橙色五角星）");
+                    break;
+                case 2:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/2_vibraphone_G4（小房子）");
+                    break;
+                case 3:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/3_soulroadpiano_G3（蓝色五角星）");
+                    break;
+                case 4:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/4_violinarco_E3（从下往上第一个太阳）");
+                    break;
+                case 5:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/5_violinarco_A3（第二个太阳）");
+                    break;
+                case 6:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/6_violinarco_E4（第三个太阳）");
+                    break;
+                case 7:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/10_Flute_F（蓝色的树）");
+                    break;
+                case 8:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/11_handpan_C3（小车）");
+                    break;
+                case 9:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/12_mellotoon_D3（小人）");
+                    break;
+                case 10:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/13_GMS_B3（蓝色小鱼）");
+                    break;
+                case 11:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/14_featheredflute_C4（紫色云）");
+                    break;
+            }
+            audioSource.clip = clip;
+        }
 
         // 设置 AudioSource 的属性
         audioSource.playOnAwake = false;
