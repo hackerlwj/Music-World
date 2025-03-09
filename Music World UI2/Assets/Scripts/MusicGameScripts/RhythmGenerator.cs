@@ -1,34 +1,49 @@
 using System.Collections;
-using System.Collections.Generic; // 引入List所需的命名空间
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RhythmGenerator : MonoBehaviour
 {
     public GameObject targetPrefab;
-    public float[] spawnTimes; // 节奏点出现时间数组
+    public float[] spawnIntervals; // 节奏点生成间隔时间数组
+    public int[] spawnIndex; // 节奏点出现位置数组
     public List<Transform> spawnPoints; // 生成位置列表
+    private int spawnCount = 0;
+    private bool isGenerating = false; // 标志位，用于控制是否开始生成
 
     public void StartGenerator()
     {
-        StartCoroutine(SpawnTargets());
+        isGenerating = true; // 设置标志位为true，表示开始生成
+        StartCoroutine(GenerateTargets()); // 启动协程开始生成预制体
     }
 
-    IEnumerator SpawnTargets()
+    private IEnumerator GenerateTargets()
     {
-        foreach (float time in spawnTimes)
+        while (spawnCount < spawnIntervals.Length)
         {
-            yield return new WaitForSeconds(time);
             if (spawnPoints.Count > 0) // 确保spawnPoints中有元素
             {
-                int posIndex = Random.Range(0, spawnPoints.Count); // 使用Count获取列表长度
-                Instantiate(targetPrefab, spawnPoints[posIndex].position + new Vector3(0, 0, -1), Quaternion.identity);
+                // 生成预制体
+                Instantiate(targetPrefab, spawnPoints[spawnIndex[spawnCount]].position + new Vector3(0, 0, -1), Quaternion.identity);
+                spawnCount++;
+
+                // 等待指定的间隔时间
+                if (spawnCount < spawnIntervals.Length)
+                {
+                    yield return new WaitForSeconds(spawnIntervals[spawnCount]);
+                }
             }
             else
             {
                 Debug.LogError("No spawn points available!");
+                break;
             }
         }
+
+        // 所有预制体都已生成，开始显示游戏结束面板
         StartCoroutine(ShowGameOverPanel());
+        // 停止更新，避免重复调用
+        this.enabled = false;
     }
 
     IEnumerator ShowGameOverPanel()

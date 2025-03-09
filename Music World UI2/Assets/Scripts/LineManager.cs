@@ -47,7 +47,7 @@ public class LineManager : MonoBehaviour
     //        rhythmGenerator.spawnPoints.Add(line.transform);
     //    }
     //}
-    public void CreateLine(string filePath,Color color)
+    public void CreateLine(string filePath,Color color, Vector3 rawImagePosition)
     {
         GameObject line = new GameObject("Line_" + lineList.Count.ToString());
         line.transform.SetParent(canvas.transform);
@@ -63,8 +63,8 @@ public class LineManager : MonoBehaviour
         line.AddComponent<RawImageEffect>();       
         line.AddComponent<DrawLine>();
         
-        rawImage.rectTransform.anchoredPosition = new Vector2(0, 0);
-        rawImage.rectTransform.sizeDelta = new Vector2(3, 3); // 设置RawImage的大小
+        rawImage.rectTransform.localPosition = rawImagePosition;
+        rawImage.rectTransform.sizeDelta = new Vector2(25f, 25f); // 设置RawImage的大小
         //RawImage rawImage=line.GetComponent<RawImage>();
         
         lineList.Add(line);

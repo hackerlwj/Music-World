@@ -6,7 +6,7 @@ using TMPro;
 
 public class RawImageEffect : MonoBehaviour, IPointerClickHandler
 {
-    public float jumpStrength = 1f; // 跳动的强度
+    public float jumpStrength = 5f; // 跳动的强度
     public float duration = 0.5f; // 跳动的持续时间
     public int jumpCount = 1; // 跳动的次数
     private AudioSource audioSource;
@@ -42,7 +42,7 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
                     clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/1_grandpiano_G3（橙色五角星）");
                     break;
                 case 2:
-                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/2_vibraphone_G4（小房子）");
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/2_vibraphone_G3（小房子）");
                     break;
                 case 3:
                     clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/3_soulroadpiano_G3（蓝色五角星）");
@@ -70,6 +70,12 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
                     break;
                 case 11:
                     clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/14_featheredflute_C4（紫色云）");
+                    break;
+                case 12:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/15_featheredflute_D4（紫色云2）");
+                    break;
+                case 13:
+                    clip = Resources.Load<AudioClip>("SoundSource/复赛视频演示/第2部分/16_violinpizzicato_G4（六芒星）");
                     break;
             }
             audioSource.clip = clip;
@@ -109,62 +115,62 @@ public class RawImageEffect : MonoBehaviour, IPointerClickHandler
             Vector2 screenPos = rectTransform.anchoredPosition;
 
             // 根据 y 坐标范围进行不同操作
-            if (screenPos.y < -23)
+            if (screenPos.y < -236)
             {
                 UpdateExistingText("do");
                 DestroySpecificPrefab("do(Clone)");
             }
-            else if (screenPos.y >= -23 && screenPos.y < -17)
+            else if (screenPos.y >= -236 && screenPos.y < -166)
             {
                 UpdateExistingText("re");
                 DestroySpecificPrefab("re(Clone)");
             }
-            else if (screenPos.y >= -17 && screenPos.y < -10)
+            else if (screenPos.y >= -166 && screenPos.y < -116)
             {
                 UpdateExistingText("mi");
                 DestroySpecificPrefab("mi(Clone)");
             }
-            else if (screenPos.y >= -10 && screenPos.y < -6)
+            else if (screenPos.y >= -116 && screenPos.y < -69)
             {
                 UpdateExistingText("fa");
                 DestroySpecificPrefab("fa(Clone)");
             }
-            else if (screenPos.y >= -6 && screenPos.y < 0)
+            else if (screenPos.y >= -69 && screenPos.y < -26)
             {
                 UpdateExistingText("sol");
                 DestroySpecificPrefab("sol(Clone)");
             }
-            else if (screenPos.y >= 0 && screenPos.y < 5)
+            else if (screenPos.y >= -26 && screenPos.y < 51)
             {
                 UpdateExistingText("la");
                 DestroySpecificPrefab("la(Clone)");
             }
-            else if (screenPos.y >= 5 && screenPos.y < 11)
+            else if (screenPos.y >= 51 && screenPos.y < 98)
             {
                 UpdateExistingText("ti");
                 DestroySpecificPrefab("ti(Clone)");
             }
-            else if (screenPos.y >= 11 && screenPos.y < 17)
+            else if (screenPos.y >= 98 && screenPos.y < 161)
             {
                 UpdateExistingText("do'");
                 DestroySpecificPrefab("do'(Clone)");
             }
-            else if (screenPos.y >= 17 && screenPos.y < 23)
+            else if (screenPos.y >= 161 && screenPos.y < 211)
             {
                 UpdateExistingText("re'");
                 DestroySpecificPrefab("re'(Clone)");
             }
-            else if (screenPos.y >= 23 && screenPos.y < 29)
+            else if (screenPos.y >= 211 && screenPos.y < 268)
             {
                 UpdateExistingText("mi'");
                 DestroySpecificPrefab("mi'(Clone)");
             }
-            else if (screenPos.y >= 29 && screenPos.y < 35)
+            else if (screenPos.y >= 268 && screenPos.y < 325)
             {
                 UpdateExistingText("fa'");
                 DestroySpecificPrefab("fa'(Clone)");
             }
-            else if (screenPos.y >= 35 && screenPos.y < 41)
+            else if (screenPos.y >= 325 && screenPos.y < 405)
             {
                 UpdateExistingText("sol'");
                 DestroySpecificPrefab("sol'(Clone)");

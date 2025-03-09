@@ -49,7 +49,7 @@ public class CameraController : MonoBehaviour
             string fileName = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png"; // ÎÄ¼þÃû
             File.WriteAllBytes(savePath + fileName, bytes);
             Debug.Log("Photo saved to: " + savePath + fileName);
-            lineManager.CreateLine(savePath + fileName,Color.white);
+            lineManager.CreateLine(savePath + fileName,Color.white,new Vector3 (0,0,0));
         }
     }
 

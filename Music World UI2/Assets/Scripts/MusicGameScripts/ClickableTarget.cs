@@ -52,7 +52,7 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
         isDestroying = true;
 
         float scaleLevel = halo.transform.localScale.x / initialScale.x;
-        if (scaleLevel<0.3f)
+        if (scaleLevel < 0.3f)
         {
             Debug.Log("perfect");
             GameManager.Instance.AddPerfect();
@@ -63,7 +63,8 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
             GameManager.Instance.AddGood();
         }
         GameManager.Instance.AddScore(CalculateScore());
-        ParticleSystem hitEffectprefab = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        ParticleSystem hitEffectInstance = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        StartCoroutine(DestroyParticleSystemAfterPlay(hitEffectInstance));
         Destroy(gameObject);
     }
 
@@ -71,7 +72,8 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
     {
         //GameManager.Instance.ResetCombo();
         GameManager.Instance.AddMiss();
-        Instantiate(hitEffect, transform.position, Quaternion.identity);
+        ParticleSystem hitEffectInstance = Instantiate(hitEffect, transform.position, Quaternion.identity);
+        StartCoroutine(DestroyParticleSystemAfterPlay(hitEffectInstance));
         Destroy(gameObject);
     }
 
@@ -79,5 +81,16 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
     {
         float scaleProgress = 1 - halo.transform.localScale.x / initialScale.x;
         return Mathf.RoundToInt(Mathf.Lerp(50, 100, scaleProgress));
+    }
+
+    IEnumerator DestroyParticleSystemAfterPlay(ParticleSystem particleSystem)
+    {
+        // 等待粒子系统播放完成
+        while (particleSystem.isPlaying)
+        {
+            yield return null;
+        }
+        // 粒子系统播放完成后销毁
+        Destroy(particleSystem.gameObject);
     }
 }

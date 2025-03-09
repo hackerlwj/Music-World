@@ -25,7 +25,7 @@ public class CanvasManager : MonoBehaviour
         saveCanvas.SetActive(true);
         //cameraCanvas.SetActive(true);
         gameCanvas.SetActive(false);
-        drawCanvas.SetActive(true);
+        drawCanvas.SetActive(false);
         mainCanvas.SetActive(false);
         startCanvas.SetActive(true);
     }

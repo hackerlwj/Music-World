@@ -10,6 +10,8 @@ public class PanelController : MonoBehaviour
     //public Image panel5PromptImage;
     public float hideTime = 1f;
 
+    public GameObject drawPenList;
+    private bool isDrawPenListVisible = false;
     public CanvasGroup panel1CanvasGroup; // 第一个面板的 CanvasGroup 组件
     public CanvasGroup panel2CanvasGroup; // 第二个面板的 CanvasGroup 组件
     public CanvasGroup panel3CanvasGroup; // 第三个面板的 CanvasGroup 组件
@@ -18,6 +20,20 @@ public class PanelController : MonoBehaviour
     public float fadeDuration = 0.5f; // 淡入淡出动画的持续时间
     public Ease fadeEaseType = Ease.Linear; // 动画缓动类型
 
+    public void ShowDrawPenList()
+    {
+        if(isDrawPenListVisible == false)
+        {
+            drawPenList.SetActive(true);
+            isDrawPenListVisible = true;
+        }
+        else
+        {
+            drawPenList.SetActive(false);
+            isDrawPenListVisible = false;
+        }    
+            
+    }
     // 显示第一个面板的方法
     public void ShowPanel1()
     {

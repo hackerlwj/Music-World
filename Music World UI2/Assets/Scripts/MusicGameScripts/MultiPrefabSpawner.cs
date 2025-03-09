@@ -1,29 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MultiPrefabSpawner : MonoBehaviour
 {
     public GameObject[] prefabs;
-    public float spawnRate = 1f;
+    public float[] spawnIntervals; // 每个预制体对应的生成间隔时间
     public float spawnXScreen;
     public float spawnYScreen;
     public GameObject gameCanvas;
 
-    public void StartSpawn()
+    private bool isSpawning = false; // 标记是否开始生成
+
+    // 开始生成预制体的函数
+    public void StartSpawning()
     {
-        // 当 GameCanvas 激活时，启动重复调用 Spawn 方法的协程
-        InvokeRepeating("Spawn", 0f, spawnRate);
+        isSpawning = true;
+        StartCoroutine(SpawnPrefabs()); // 启动协程开始生成预制体
     }
 
-    private void OnDisable()
+    private IEnumerator SpawnPrefabs()
     {
-        // 当 GameCanvas 禁用时，停止重复调用 Spawn 方法
-        CancelInvoke("Spawn");
+        for (int i = 0; i < spawnIntervals.Length; i++)
+        {
+            // 等待指定的间隔时间
+            yield return new WaitForSeconds(spawnIntervals[i]);
+
+            // 调用 Spawn 方法生成预制体
+            Spawn(i % prefabs.Length);
+        }
     }
 
-    private void Spawn()
+    private void Spawn(int prefabIndex)
     {
-        int randomIndex = Random.Range(0, prefabs.Length);
-        GameObject selectedPrefab = prefabs[randomIndex];
+        if (prefabIndex < 0 || prefabIndex >= prefabs.Length)
+        {
+            Debug.LogError("预制体编号超出范围！");
+            return;
+        }
+
+        GameObject selectedPrefab = prefabs[prefabIndex];
         Vector3 screenSpawnPosition = new Vector3(spawnXScreen, spawnYScreen, 0f);
         GameObject instantiatedObject = Instantiate(selectedPrefab, Vector3.zero, Quaternion.identity);
 
