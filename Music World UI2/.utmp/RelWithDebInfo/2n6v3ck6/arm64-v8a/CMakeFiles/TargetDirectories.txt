@@ -1,0 +1,5 @@
+D:/unity project/Music World UI2/.utmp/RelWithDebInfo/2n6v3ck6/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/unity project/Music World UI2/.utmp/RelWithDebInfo/2n6v3ck6/arm64-v8a/CMakeFiles/rebuild_cache.dir
+D:/unity project/Music World UI2/.utmp/RelWithDebInfo/2n6v3ck6/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+D:/unity project/Music World UI2/.utmp/RelWithDebInfo/2n6v3ck6/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+D:/unity project/Music World UI2/.utmp/RelWithDebInfo/2n6v3ck6/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

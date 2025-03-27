@@ -106,8 +106,11 @@ namespace TheSimpleDraw
 
         private void SaveBytesToFile(byte[] bytes, string filename)
         {
-            string path = Path.Combine(Application.streamingAssetsPath, "SavedDrawings");
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            string path = Path.Combine(Application.persistentDataPath, "SavedDrawings");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             path = Path.Combine(path, filename);
             File.WriteAllBytes(path, bytes);
 #if UNITY_EDITOR
@@ -140,15 +143,18 @@ namespace TheSimpleDraw
         {
             float width = drawingAreas[index].rectTransform.rect.width;
             float height = drawingAreas[index].rectTransform.rect.height;
-            if (Mathf.Abs(localPoint.x / width) > 0.5f || Mathf.Abs(localPoint.y / height) > 0.5f) return Vector2.zero;
-            float xNormalized = (localPoint.x / width + 0.5f);
-            float yNormalized = (localPoint.y / height + 0.5f);
-            return new Vector2(Mathf.Clamp((int)(xNormalized * textures[index].width), 0, textures[index].width - 1),
-                               Mathf.Clamp((int)(yNormalized * textures[index].height), 0, textures[index].height - 1));
+            float xNormalized = Mathf.Clamp((localPoint.x / width + 0.5f), 0, 1);
+            float yNormalized = Mathf.Clamp((localPoint.y / height + 0.5f), 0, 1);
+            return new Vector2((int)(xNormalized * textures[index].width),
+                               (int)(yNormalized * textures[index].height));
         }
 
         void DrawBezierCurve(Vector2 p0, Vector2 p1, Vector2 p2, Color color, int thickness, int index)
         {
+            p0 = ClampPoint(p0, index);
+            p1 = ClampPoint(p1, index);
+            p2 = ClampPoint(p2, index);
+
             int steps = Mathf.Max(5, (int)(Vector2.Distance(p0, p2) / 10));
             for (int i = 0; i < steps; i++)
             {
@@ -168,6 +174,11 @@ namespace TheSimpleDraw
 
         void DrawLine(int x0, int y0, int x1, int y1, Color color, int thickness, int index)
         {
+            x0 = Mathf.Clamp(x0, 0, textures[index].width - 1);
+            y0 = Mathf.Clamp(y0, 0, textures[index].height - 1);
+            x1 = Mathf.Clamp(x1, 0, textures[index].width - 1);
+            y1 = Mathf.Clamp(y1, 0, textures[index].height - 1);
+
             int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
             int dy = -Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
             int err = dx + dy;
@@ -220,12 +231,18 @@ namespace TheSimpleDraw
         private void SwitchToNextDrawingArea()
         {
             drawingAreas[currentDrawingAreaIndex].gameObject.SetActive(false); // 禁用当前的RawImage
-            if(drawingAreas.Count > currentDrawingAreaIndex + 1)
+            if (drawingAreas.Count > currentDrawingAreaIndex + 1)
             {
                 currentDrawingAreaIndex = currentDrawingAreaIndex + 1; // 切换到下一个索引
                 drawingAreas[currentDrawingAreaIndex].gameObject.SetActive(true); // 启用下一个RawImage
                 drawPoints.Clear(); // 清空绘制点
             }
+        }
+
+        Vector2 ClampPoint(Vector2 point, int index)
+        {
+            return new Vector2(Mathf.Clamp((int)point.x, 0, textures[index].width - 1),
+                               Mathf.Clamp((int)point.y, 0, textures[index].height - 1));
         }
     }
 }

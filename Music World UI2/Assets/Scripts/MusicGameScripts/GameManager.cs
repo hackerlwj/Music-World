@@ -80,4 +80,42 @@ public class GameManager : MonoBehaviour
             gameOverPanelCanvasGroup.transform.DOScale(Vector3.one, duration).SetEase(easeType);
         }
     }
+
+    public void CloseGameOverPanel()
+    {
+        if (gameOverPanelCanvasGroup != null)
+        {
+            // 禁用交互性
+            gameOverPanelCanvasGroup.interactable = false;
+            gameOverPanelCanvasGroup.blocksRaycasts = false;
+
+            // 播放隐藏动画
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(gameOverPanelCanvasGroup.DOFade(0, duration).SetEase(easeType));
+            sequence.Join(gameOverPanelCanvasGroup.transform.DOScale(Vector3.zero, duration).SetEase(easeType));
+
+            // 动画完成后执行回调
+            sequence.OnComplete(() =>
+            {
+                // 确保面板完全不可见
+                gameOverPanelCanvasGroup.alpha = 0;
+                gameOverPanelCanvasGroup.transform.localScale = Vector3.zero;
+            });
+        }
+    }
+
+    public void RestartGame()
+    {
+        // 重置得分和计数
+        currentScore = 0;
+        perfectCount = 0;
+        goodCount = 0;
+        missCount = 0;
+
+        // 更新得分显示
+        scoreText.text = $"Score: 0";
+
+        // 关闭游戏结束面板
+        CloseGameOverPanel();
+    }
 }

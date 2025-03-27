@@ -27,7 +27,7 @@ public class MultiPrefabSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnIntervals[i]);
 
             // 调用 Spawn 方法生成预制体
-            Spawn(i % prefabs.Length);
+            Spawn(i);
         }
     }
 

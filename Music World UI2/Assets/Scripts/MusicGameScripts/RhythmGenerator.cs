@@ -13,18 +13,29 @@ public class RhythmGenerator : MonoBehaviour
 
     public void StartGenerator()
     {
+        spawnCount = 0;
         isGenerating = true; // 设置标志位为true，表示开始生成
         StartCoroutine(GenerateTargets()); // 启动协程开始生成预制体
     }
 
     private IEnumerator GenerateTargets()
     {
+        yield return new WaitForSeconds(1.25f);
         while (spawnCount < spawnIntervals.Length)
         {
             if (spawnPoints.Count > 0) // 确保spawnPoints中有元素
             {
                 // 生成预制体
-                Instantiate(targetPrefab, spawnPoints[spawnIndex[spawnCount]].position + new Vector3(0, 0, -1), Quaternion.identity);
+                GameObject instantiatedObject = Instantiate(targetPrefab, spawnPoints[spawnIndex[spawnCount]].position + new Vector3(0, 0, -1), Quaternion.identity);
+
+                // 获取实例化对象上的 ClickableTarget 组件
+                ClickableTarget clickableTarget = instantiatedObject.GetComponent<ClickableTarget>();
+
+                if (clickableTarget != null)
+                {
+                    // 为 targetGameObject 字段赋值
+                    clickableTarget.targetGameObject = spawnPoints[spawnIndex[spawnCount]].gameObject;
+                }
                 spawnCount++;
 
                 // 等待指定的间隔时间

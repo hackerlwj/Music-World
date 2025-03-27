@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CanvasManager : MonoBehaviour
 {
     public float hideTime = 1f;
-    public Image gamePromptImage;
+    //public Image gamePromptImage;
     public Animator animator;
     private Canvas mainCanva;
 
@@ -84,11 +84,18 @@ public class CanvasManager : MonoBehaviour
     public void ExitApplication()
     {
         DeleteSavedTextures();
+        // 在编辑器中停止播放
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // 在发布版本中退出应用程序
+        Application.Quit();
+#endif
         Debug.Log("Application has been quit.");
     }
     public void DeleteSavedTextures()
     {
-        string directoryPath = Application.streamingAssetsPath + "/SavedDrawings";
+        string directoryPath = Path.Combine(Application.persistentDataPath, "SavedDrawings");
         if (Directory.Exists(directoryPath))
         {
             // 获取目录中的所有文件
@@ -104,40 +111,36 @@ public class CanvasManager : MonoBehaviour
             Debug.Log("No saved textures to delete.");
         }
     }
-    IEnumerator FadeOutOverTime(float fadeDuration, Image promptImage)
-    {
-        //提示显示维持的时间
-        yield return new WaitForSeconds(3f);
-        // 记录开始时间
-        float startTime = Time.time;
-        // 记录开始时的透明度
-        float startAlpha = promptImage.color.a;
+    //IEnumerator FadeOutOverTime(float fadeDuration, Image promptImage)
+    //{
+    //    //提示显示维持的时间
+    //    yield return new WaitForSeconds(3f);
+    //    // 记录开始时间
+    //    float startTime = Time.time;
+    //    // 记录开始时的透明度
+    //    float startAlpha = promptImage.color.a;
 
-        while (Time.time - startTime < fadeDuration)
-        {
-            // 计算当前的透明度
-            float t = (Time.time - startTime) / fadeDuration;
-            float currentAlpha = Mathf.Lerp(startAlpha, 0f, t);
+    //    while (Time.time - startTime < fadeDuration)
+    //    {
+    //        // 计算当前的透明度
+    //        float t = (Time.time - startTime) / fadeDuration;
+    //        float currentAlpha = Mathf.Lerp(startAlpha, 0f, t);
 
-            // 获取当前的颜色
-            Color currentColor = promptImage.color;
-            // 设置新的透明度
-            currentColor.a = currentAlpha;
-            // 设置新的颜色
-            promptImage.color = currentColor;
+    //        // 获取当前的颜色
+    //        Color currentColor = promptImage.color;
+    //        // 设置新的透明度
+    //        currentColor.a = currentAlpha;
+    //        // 设置新的颜色
+    //        promptImage.color = currentColor;
 
-            // 等待下一帧
-            yield return null;
-        }
+    //        // 等待下一帧
+    //        yield return null;
+    //    }
 
-        // 确保透明度最终为0
-        promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
-        promptImage.gameObject.SetActive(false);
-    }
+    //    // 确保透明度最终为0
+    //    promptImage.color = new Color(promptImage.color.r, promptImage.color.g, promptImage.color.b, 0f);
+    //    promptImage.gameObject.SetActive(false);
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

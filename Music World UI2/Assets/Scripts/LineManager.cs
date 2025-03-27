@@ -61,7 +61,7 @@ public class LineManager : MonoBehaviour
         line.AddComponent<AudioSource>();
         line.AddComponent<CanvasGroup>();
         line.AddComponent<RawImageEffect>();       
-        line.AddComponent<DrawLine>();
+        //line.AddComponent<DrawLine>();
         
         rawImage.rectTransform.localPosition = rawImagePosition;
         rawImage.rectTransform.sizeDelta = new Vector2(25f, 25f); // 设置RawImage的大小

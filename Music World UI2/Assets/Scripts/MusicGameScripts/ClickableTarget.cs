@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ClickableTarget : MonoBehaviour, IPointerClickHandler
+public class ClickableTarget : MonoBehaviour
 {
     public ParticleSystem hitEffect;
     public Image halo;
-    public float scaleDuration = 1.5f; // 总缩放时间
+    public float scaleDuration = 1f; // 总缩放时间
     public AnimationCurve scaleCurve; // 控制缩放曲线
+    public GameObject targetGameObject; // 缩圈所产生的位置上对应的涂鸦物体
 
     private Vector3 initialScale = new Vector3(0.5f, 0.5f, 1f); // 初始大小
     private bool isDestroying = false;
@@ -21,6 +22,30 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
         StartCoroutine(ScaleHalo());
         // 自动销毁保护
         Destroy(gameObject, scaleDuration + 0.5f);
+    }
+    private void Update()
+    {
+        if (targetGameObject != null)
+        {
+            // 获取RawImageEffect组件
+            RawImageEffect rawImageEffect = targetGameObject.GetComponent<RawImageEffect>();
+
+            // 检查RawImageEffect组件是否存在
+            if (rawImageEffect != null)
+            {
+                rawImageEffect.isCircling = true;
+                if(rawImageEffect.clickableTarget == null)
+                    rawImageEffect.clickableTarget = this;
+            }
+            else
+            {
+                Debug.LogError("RawImageEffect component not found on the targetGameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("targetGameObject is null.");
+        }
     }
 
     IEnumerator ScaleHalo()
@@ -45,12 +70,11 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnHaloClick()
     {
         if (isDestroying) return;
 
         isDestroying = true;
-
         float scaleLevel = halo.transform.localScale.x / initialScale.x;
         if (scaleLevel < 0.3f)
         {
@@ -65,6 +89,8 @@ public class ClickableTarget : MonoBehaviour, IPointerClickHandler
         GameManager.Instance.AddScore(CalculateScore());
         ParticleSystem hitEffectInstance = Instantiate(hitEffect, transform.position, Quaternion.identity);
         StartCoroutine(DestroyParticleSystemAfterPlay(hitEffectInstance));
+        RawImageEffect rawImageEffect = targetGameObject.GetComponent<RawImageEffect>();
+        rawImageEffect.isCircling = false;
         Destroy(gameObject);
     }
 

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1842082199989170118}
   - component: {fileID: 1564517403081144517}
   - component: {fileID: 2462703226391267569}
-  - component: {fileID: 5290674966500487850}
+  - component: {fileID: 4551866406001785892}
   m_Layer: 5
   m_Name: Target
   m_TagString: Untagged
@@ -137,14 +137,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 261fd9504b102f04584fca8a2f525c4b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5290674966500487850
+--- !u!114 &4551866406001785892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 8567743453655228817, guid: 212ef1a41838ce044a9ac54994866708, type: 3}
   halo: {fileID: 1140315100943871198}
-  scaleDuration: 2
+  scaleDuration: 1
   scaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -193,3 +193,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  targetGameObject: {fileID: 0}

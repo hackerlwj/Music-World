@@ -1,4 +1,3 @@
-using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -22,9 +21,9 @@ public class InputPanelScript : MonoBehaviour
         }
         // 为下拉列表添加选项
         dropdown.options.Clear();
-        dropdown.options.Add(new Dropdown.OptionData("选项 1"));
-        dropdown.options.Add(new Dropdown.OptionData("选项 2"));
-        dropdown.options.Add(new Dropdown.OptionData("选项 3"));
+        dropdown.options.Add(new Dropdown.OptionData("歌声清澈，满是欢乐"));
+        dropdown.options.Add(new Dropdown.OptionData("节奏灵动，奇幻十足"));
+        dropdown.options.Add(new Dropdown.OptionData("音调低沉，雄厚有力"));
         // 为下拉列表添加选择事件监听器
         dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
     }
